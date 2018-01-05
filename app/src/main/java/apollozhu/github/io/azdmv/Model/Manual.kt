@@ -5,20 +5,25 @@ import apollozhu.github.io.azdmv.R
 import org.json.JSONArray
 import org.json.JSONObject
 
-data class Manual(val ctx: Context) {
+object Manual {
+    val name = "Driver's Study Guide"
 
-    companion object {
-        val name = "Driver's Study Guide"
+    private lateinit var _contents: JSONArray
+    private lateinit var _tboc: JSONObject
+    var needsContext = true
+        private set
+
+    fun setContext(ctx: Context) {
+        needsContext = false
+        _contents = JSONArray(ctx.resources.openRawResource(R.raw.manual).bufferedReader().use { it.readText() })
+        _tboc = JSONObject(ctx.resources.openRawResource(R.raw.manual_tboc).bufferedReader().use { it.readText() })
     }
-
-    private var _contents = JSONArray(ctx.resources.openRawResource(R.raw.manual).bufferedReader().use { it.readText() })
-    private var _tboc = JSONObject(ctx.resources.openRawResource(R.raw.manual_tboc).bufferedReader().use { it.readText() })
 
     val sections: Array<Section>
         get() {
             val rawSections = _tboc.getJSONArray("sections")
             // For all sections
-            var sections = arrayOfNulls<Section>(_tboc.getInt("totalSections") + 1)
+            val sections = arrayOfNulls<Section>(_tboc.getInt("totalSections") + 1)
             for (key in 0 until rawSections.length()) {
                 val subJSON = rawSections.getJSONObject(key)
                 try {
@@ -37,7 +42,7 @@ data class Manual(val ctx: Context) {
 
     val subsections: List<List<SubSection>>
         get() {
-            var subSections = (1..sections.size).map { mutableListOf<SubSection>() }
+            val subSections = (1..sections.size).map { mutableListOf<SubSection>() }
             for (key in 0 until _contents.length()) {
                 val subJSON = _contents.getJSONObject(key)
                 val sectionID = subJSON.getInt("section")

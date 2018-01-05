@@ -1,4 +1,4 @@
-package apollozhu.github.io.azdmv
+package apollozhu.github.io.azdmv.Activity
 
 import android.content.Context
 import android.database.DataSetObserver
@@ -10,10 +10,9 @@ import apollozhu.github.io.azdmv.Model.Manual
 import apollozhu.github.io.azdmv.Model.Section
 import apollozhu.github.io.azdmv.Model.SubSection
 
-class MainAdapter(val ctx: Context, val manual: Manual) : ExpandableListAdapter {
-    private val dataSetObserverList = mutableListOf<DataSetObserver?>()
+class MainAdapter(val ctx: Context) : ExpandableListAdapter {
     override fun isEmpty(): Boolean {
-        return false
+        return Manual.needsContext
     }
 
     override fun hasStableIds(): Boolean {
@@ -21,13 +20,17 @@ class MainAdapter(val ctx: Context, val manual: Manual) : ExpandableListAdapter 
     }
 
     override fun areAllItemsEnabled(): Boolean {
-        return false
+        return true
+    }
+
+    override fun isChildSelectable(p0: Int, p1: Int): Boolean {
+        return true
     }
 
     // Group
 
     override fun getGroupCount(): Int {
-        return manual.sections.size
+        return Manual.sections.size
     }
 
     override fun getGroupId(p0: Int): Long {
@@ -35,7 +38,7 @@ class MainAdapter(val ctx: Context, val manual: Manual) : ExpandableListAdapter 
     }
 
     override fun getGroup(p0: Int): Any {
-        return manual.sections[p0]
+        return Manual.sections[p0]
     }
 
     override fun getGroupView(p0: Int, p1: Boolean, p2: View?, p3: ViewGroup?): View {
@@ -59,7 +62,7 @@ class MainAdapter(val ctx: Context, val manual: Manual) : ExpandableListAdapter 
     // Child
 
     override fun getChildrenCount(p0: Int): Int {
-        return manual.subsections[p0].size
+        return Manual.subsections[p0].size
     }
 
     override fun getChildId(p0: Int, p1: Int): Long {
@@ -67,7 +70,7 @@ class MainAdapter(val ctx: Context, val manual: Manual) : ExpandableListAdapter 
     }
 
     override fun getChild(p0: Int, p1: Int): Any {
-        return manual.subsections[p0][p1]
+        return Manual.subsections[p0][p1]
     }
 
     override fun getChildView(p0: Int, p1: Int, p2: Boolean, p3: View?, p4: ViewGroup?): View {
@@ -76,15 +79,11 @@ class MainAdapter(val ctx: Context, val manual: Manual) : ExpandableListAdapter 
         return label
     }
 
-    override fun isChildSelectable(p0: Int, p1: Int): Boolean {
-        return manual.subsections[p0][p1].hasQuiz
-    }
-
     override fun getCombinedChildId(p0: Long, p1: Long): Long {
         return getCombinedGroupId(p0) + p1 + 1
     }
 
-    // ??
+    private val dataSetObserverList = mutableListOf<DataSetObserver?>()
 
     override fun registerDataSetObserver(p0: DataSetObserver?) {
         dataSetObserverList.add(p0)

@@ -6,8 +6,15 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 
-data class QuizSet(val ctx: Context) {
-    private var _quizzes = JSONArray(ctx.resources.openRawResource(R.raw.manual_quiz).bufferedReader().use { it.readText() })
+object QuizSet {
+    private lateinit var _quizzes: JSONArray
+    var needsContext = true
+        private set
+
+    fun setContext(ctx: Context) {
+        needsContext = false
+        _quizzes = JSONArray(ctx.resources.openRawResource(R.raw.manual_quiz).bufferedReader().use { it.readText() })
+    }
 
     fun allQuizIDsIn(section: Int, subSection: Int): MutableList<Int> {
         val ids = mutableListOf<Int>()
