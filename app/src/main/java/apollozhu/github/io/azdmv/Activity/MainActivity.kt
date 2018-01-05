@@ -1,10 +1,10 @@
-package apollozhu.github.io.azdmv.Activity
+package apollozhu.github.io.azdmv.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ExpandableListView
-import apollozhu.github.io.azdmv.Model.Manual
-import apollozhu.github.io.azdmv.Model.SubSection
+import apollozhu.github.io.azdmv.model.Manual
+import apollozhu.github.io.azdmv.model.SubSection
 import apollozhu.github.io.azdmv.R
 
 class MainActivity : AZBaseCompatActivity() {

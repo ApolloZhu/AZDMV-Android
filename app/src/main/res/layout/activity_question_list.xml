@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="apollozhu.github.io.azdmv.Activity.QuestionListActivity">
+    tools:context="apollozhu.github.io.azdmv.activity.QuestionListActivity">
 
     <ListView
         android:id="@+id/question_list"

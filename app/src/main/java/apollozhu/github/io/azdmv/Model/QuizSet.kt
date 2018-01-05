@@ -1,4 +1,4 @@
-package apollozhu.github.io.azdmv.Model
+package apollozhu.github.io.azdmv.model
 
 import android.content.Context
 import apollozhu.github.io.azdmv.R

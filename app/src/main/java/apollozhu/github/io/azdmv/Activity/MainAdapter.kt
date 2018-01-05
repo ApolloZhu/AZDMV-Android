@@ -1,4 +1,4 @@
-package apollozhu.github.io.azdmv.Activity
+package apollozhu.github.io.azdmv.activity
 
 import android.content.Context
 import android.database.DataSetObserver
@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListAdapter
 import android.widget.TextView
-import apollozhu.github.io.azdmv.Model.Manual
-import apollozhu.github.io.azdmv.Model.Section
-import apollozhu.github.io.azdmv.Model.SubSection
+import apollozhu.github.io.azdmv.model.Manual
+import apollozhu.github.io.azdmv.model.Section
+import apollozhu.github.io.azdmv.model.SubSection
 import apollozhu.github.io.azdmv.R
 
 class MainAdapter(val ctx: Context) : ExpandableListAdapter {

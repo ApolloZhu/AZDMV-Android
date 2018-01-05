@@ -1,4 +1,4 @@
-package apollozhu.github.io.azdmv.Activity
+package apollozhu.github.io.azdmv.activity
 
 import android.content.Intent
 import android.os.Bundle

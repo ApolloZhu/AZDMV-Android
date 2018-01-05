@@ -1,10 +1,10 @@
-package apollozhu.github.io.azdmv.Activity
+package apollozhu.github.io.azdmv.activity
 
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
-import apollozhu.github.io.azdmv.Model.Manual
-import apollozhu.github.io.azdmv.Model.QuizSet
+import apollozhu.github.io.azdmv.model.Manual
+import apollozhu.github.io.azdmv.model.QuizSet
 
 open class AZBaseCompatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
@@ -21,5 +21,4 @@ open class AZBaseCompatActivity : AppCompatActivity() {
         if (Manual.needsContext) Manual.setContext(this)
         if (QuizSet.needsContext) QuizSet.setContext(this)
     }
-
 }

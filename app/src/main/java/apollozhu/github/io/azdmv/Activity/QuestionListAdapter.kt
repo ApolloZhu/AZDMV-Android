@@ -1,4 +1,4 @@
-package apollozhu.github.io.azdmv.Activity
+package apollozhu.github.io.azdmv.activity
 
 import android.content.Context
 import android.database.DataSetObserver
@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListAdapter
 import android.widget.TextView
-import apollozhu.github.io.azdmv.Model.Quiz
-import apollozhu.github.io.azdmv.Model.SubSection
+import apollozhu.github.io.azdmv.model.Quiz
+import apollozhu.github.io.azdmv.model.SubSection
 
 class QuestionListAdapter(val ctx: Context) : ListAdapter {
 

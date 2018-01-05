@@ -1,9 +1,9 @@
-package apollozhu.github.io.azdmv.Activity
+package apollozhu.github.io.azdmv.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.webkit.WebView
-import apollozhu.github.io.azdmv.Model.SubSection
+import apollozhu.github.io.azdmv.model.SubSection
 import apollozhu.github.io.azdmv.R
 import kotlinx.android.synthetic.main.activity_sub_section.*
 
