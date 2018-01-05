@@ -9,9 +9,8 @@ import android.widget.TextView
 import apollozhu.github.io.azdmv.model.Quiz
 import apollozhu.github.io.azdmv.model.SubSection
 
-class QuestionListAdapter(val ctx: Context) : ListAdapter {
-
-    val ids = SubSection.current!!.quizIDs
+class QuestionListAdapter(private val ctx: Context) : ListAdapter {
+    private val ids = SubSection.current!!.quizIDs
 
     override fun isEmpty(): Boolean {
         return ids.isEmpty()
@@ -50,7 +49,7 @@ class QuestionListAdapter(val ctx: Context) : ListAdapter {
     }
 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
-        val label = if (p1 is TextView) p1 else TextView(ctx)
+        val label = p1 as? TextView ?: TextView(ctx)
         label.text = "#${ids[p0]}: ${(getItem(p0) as Quiz).question}"
         return label
     }

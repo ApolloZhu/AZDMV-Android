@@ -12,8 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import apollozhu.github.io.azdmv.model.SubSection
 import apollozhu.github.io.azdmv.R
+import apollozhu.github.io.azdmv.model.SubSection
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_quiz.*
 import kotlinx.android.synthetic.main.fragment_quiz.view.*

@@ -3,16 +3,17 @@ package apollozhu.github.io.azdmv.activity
 import android.content.Context
 import android.database.DataSetObserver
 import android.graphics.Color
+import android.support.v4.content.res.ResourcesCompat
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListAdapter
 import android.widget.TextView
+import apollozhu.github.io.azdmv.R
 import apollozhu.github.io.azdmv.model.Manual
 import apollozhu.github.io.azdmv.model.Section
 import apollozhu.github.io.azdmv.model.SubSection
-import apollozhu.github.io.azdmv.R
 
-class MainAdapter(val ctx: Context) : ExpandableListAdapter {
+class MainAdapter(private val ctx: Context) : ExpandableListAdapter {
     override fun isEmpty(): Boolean {
         return Manual.needsContext
     }
@@ -44,11 +45,13 @@ class MainAdapter(val ctx: Context) : ExpandableListAdapter {
     }
 
     override fun getGroupView(p0: Int, p1: Boolean, p2: View?, p3: ViewGroup?): View {
-        val label = if (p2 is TextView) p2 else TextView(ctx)
+        val label = p2 as? TextView ?: TextView(ctx)
         label.textSize = 18.0f
+        val section = getGroup(p0) as Section
+        label.typeface = ResourcesCompat.getFont(ctx, R.font.icomoon)
+        label.text = "${section.icon} ${section.sectionTitle}"
         label.setBackgroundResource(R.color.positive)
         label.setTextColor(Color.WHITE)
-        label.text = (getGroup(p0) as Section).sectionTitle
         return label
     }
 
@@ -79,7 +82,7 @@ class MainAdapter(val ctx: Context) : ExpandableListAdapter {
     }
 
     override fun getChildView(p0: Int, p1: Int, p2: Boolean, p3: View?, p4: ViewGroup?): View {
-        val label = if (p3 is TextView) p3 else TextView(ctx)
+        val label = p3 as? TextView ?: TextView(ctx)
         label.text = (getChild(p0, p1) as SubSection).title
         return label
     }

@@ -3,8 +3,8 @@ package apollozhu.github.io.azdmv.activity
 import android.content.Intent
 import android.os.Bundle
 import android.webkit.WebView
-import apollozhu.github.io.azdmv.model.SubSection
 import apollozhu.github.io.azdmv.R
+import apollozhu.github.io.azdmv.model.SubSection
 import kotlinx.android.synthetic.main.activity_sub_section.*
 
 // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

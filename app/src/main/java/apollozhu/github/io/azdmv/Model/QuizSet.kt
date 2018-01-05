@@ -11,9 +11,9 @@ object QuizSet {
     var needsContext = true
         private set
 
-    fun setContext(ctx: Context) {
+    fun setContext(ctx: () -> Context) {
         needsContext = false
-        _quizzes = JSONArray(ctx.resources.openRawResource(R.raw.manual_quiz).bufferedReader().use { it.readText() })
+        _quizzes = JSONArray(ctx().resources.openRawResource(R.raw.manual_quiz).bufferedReader().use { it.readText() })
     }
 
     fun allQuizIDsIn(section: Int, subSection: Int): MutableList<Int> {
@@ -26,10 +26,6 @@ object QuizSet {
             }
         }
         return ids
-    }
-
-    fun quizQuestion(id: Int): String? {
-        return quizJSON(id)?.getString("question")
     }
 
     fun quiz(id: Int): Quiz? {

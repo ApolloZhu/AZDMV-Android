@@ -1,6 +1,8 @@
 package apollozhu.github.io.azdmv.model
 
-data class Section(val symbol: String, val sectionTitle: String, val sectionID: Int) {
+data class Section(val symbol: String,
+                   val sectionTitle: String,
+                   val sectionID: Int) {
     val icon = symbols[symbol]
 
     companion object {

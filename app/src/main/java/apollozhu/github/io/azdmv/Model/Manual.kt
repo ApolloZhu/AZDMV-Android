@@ -2,28 +2,31 @@ package apollozhu.github.io.azdmv.model
 
 import android.content.Context
 import apollozhu.github.io.azdmv.R
+import com.pgyersdk.crash.PgyCrashManager
 import org.json.JSONArray
 import org.json.JSONObject
 
 object Manual {
     val name = "Driver's Study Guide"
 
-    private lateinit var _contents: JSONArray
-    private lateinit var _tboc: JSONObject
+    private lateinit var manual: JSONArray
+    private lateinit var manual_tboc: JSONObject
+    private lateinit var context: () -> Context
     var needsContext = true
         private set
 
-    fun setContext(ctx: Context) {
+    fun setContext(ctx: () -> Context) {
         needsContext = false
-        _contents = JSONArray(ctx.resources.openRawResource(R.raw.manual).bufferedReader().use { it.readText() })
-        _tboc = JSONObject(ctx.resources.openRawResource(R.raw.manual_tboc).bufferedReader().use { it.readText() })
+        context = ctx
+        manual = JSONArray(ctx().resources.openRawResource(R.raw.manual).bufferedReader().use { it.readText() })
+        manual_tboc = JSONObject(ctx().resources.openRawResource(R.raw.manual_tboc).bufferedReader().use { it.readText() })
     }
 
     val sections: Array<Section>
         get() {
-            val rawSections = _tboc.getJSONArray("sections")
+            val rawSections = manual_tboc.getJSONArray("sections")
             // For all sections
-            val sections = arrayOfNulls<Section>(_tboc.getInt("totalSections") + 1)
+            val sections = arrayOfNulls<Section>(manual_tboc.getInt("totalSections") + 1)
             for (key in 0 until rawSections.length()) {
                 val subJSON = rawSections.getJSONObject(key)
                 try {
@@ -43,8 +46,8 @@ object Manual {
     val subsections: List<List<SubSection>>
         get() {
             val subSections = (1..sections.size).map { mutableListOf<SubSection>() }
-            for (key in 0 until _contents.length()) {
-                val subJSON = _contents.getJSONObject(key)
+            for (key in 0 until manual.length()) {
+                val subJSON = manual.getJSONObject(key)
                 val sectionID = subJSON.getInt("section")
                 subSections[sectionID - 1].add(SubSection(this,
                         subJSON.getString("subSectionTitle"),
@@ -53,7 +56,8 @@ object Manual {
                         subJSON.getInt("subSectionID"),
                         try {
                             subJSON.getString("update")
-                        } catch (_: Exception) {
+                        } catch (e: Exception) {
+                            PgyCrashManager.reportCaughtException(context(), e)
                             ""
                         }
                 ))
@@ -61,9 +65,9 @@ object Manual {
             return subSections.map { it.sortedBy { it.subSectionID } }
         }
 
-    internal val noQuiz: List<String>
+    val noQuiz: List<String>
         get() {
-            val rawArray = _tboc.getJSONArray("noQuiz")
+            val rawArray = manual_tboc.getJSONArray("noQuiz")
             return (0 until rawArray.length()).map { rawArray.getString(it) }
         }
 }
