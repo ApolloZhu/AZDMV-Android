@@ -9,3 +9,5 @@
 .externalNativeBuild
 
 .idea/vcs.xml
+
+release/

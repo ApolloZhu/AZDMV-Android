@@ -1,5 +1,8 @@
 package apollozhu.github.io.azdmv.activity
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
@@ -21,6 +24,12 @@ open class AZBaseCompatActivity : AppCompatActivity() {
     private fun assignContext() {
         if (Manual.needsContext) Manual.setContext { this }
         if (QuizSet.needsContext) QuizSet.setContext { this }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (PackageManager.PERMISSION_GRANTED !=
+                    checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 0)
+            }
+        }
     }
 
     override fun onResume() {
