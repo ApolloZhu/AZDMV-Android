@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListAdapter
 import android.widget.TextView
-import apollozhu.github.io.azdmv.Model.QuizSet
+import apollozhu.github.io.azdmv.Model.Quiz
+import apollozhu.github.io.azdmv.Model.SubSection
 
-class QuestionListAdapter(val ctx: Context, val section: Int, val subSection: Int) : ListAdapter {
-    private val ids = QuizSet.allQuizIDsIn(section, subSection).sorted()
+class QuestionListAdapter(val ctx: Context) : ListAdapter {
+
+    val ids = SubSection.current!!.quizIDs
 
     override fun isEmpty(): Boolean {
         return ids.isEmpty()
@@ -32,7 +34,7 @@ class QuestionListAdapter(val ctx: Context, val section: Int, val subSection: In
     }
 
     override fun getItem(p0: Int): Any {
-        return QuizSet.quiz(p0) ?: throw NullPointerException()
+        return SubSection.current!!.quizzes[p0]
     }
 
     override fun getItemId(p0: Int): Long {
@@ -49,7 +51,7 @@ class QuestionListAdapter(val ctx: Context, val section: Int, val subSection: In
 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
         val label = if (p1 is TextView) p1 else TextView(ctx)
-        label.text = "#${ids[p0]}"
+        label.text = "#${ids[p0]}: ${(getItem(p0) as Quiz).question}"
         return label
     }
 

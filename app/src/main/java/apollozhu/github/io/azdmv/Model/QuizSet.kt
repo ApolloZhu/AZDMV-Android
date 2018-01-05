@@ -44,7 +44,7 @@ object QuizSet {
             val text = it.getString("text").trim()
             if (text.isBlank()) continue
             val value = it.getInt("value")
-            answers[value] = QuizAnswer(value, text)
+            answers[value - 1] = QuizAnswer(value, text)
         }
 
         return Quiz(

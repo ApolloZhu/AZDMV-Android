@@ -3,6 +3,8 @@ package apollozhu.github.io.azdmv.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ExpandableListView
+import apollozhu.github.io.azdmv.Model.Manual
+import apollozhu.github.io.azdmv.Model.SubSection
 import apollozhu.github.io.azdmv.R
 
 class MainActivity : AZBaseCompatActivity() {
@@ -13,11 +15,13 @@ class MainActivity : AZBaseCompatActivity() {
         setContentView(R.layout.activity_main)
 
         listView = findViewById(R.id.expandable_list)
-        listView.setAdapter(MainAdapter(this))
+        val adapter = MainAdapter(this)
+        listView.setAdapter(adapter)
+        (0 until adapter.groupCount).forEach { listView.expandGroup(it) }
+
         listView.setOnChildClickListener { _, _, section, subSection, _ ->
+            SubSection.current = Manual.subsections[section][subSection]
             val intent = Intent(this, SubSectionActivity::class.java)
-            intent.putExtra("sectionID", section + 1)
-            intent.putExtra("subSectionID", subSection + 1)
             startActivity(intent)
             /*return*/ true
         }

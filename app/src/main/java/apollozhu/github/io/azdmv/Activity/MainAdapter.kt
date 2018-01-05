@@ -2,6 +2,7 @@ package apollozhu.github.io.azdmv.Activity
 
 import android.content.Context
 import android.database.DataSetObserver
+import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ExpandableListAdapter
@@ -9,6 +10,7 @@ import android.widget.TextView
 import apollozhu.github.io.azdmv.Model.Manual
 import apollozhu.github.io.azdmv.Model.Section
 import apollozhu.github.io.azdmv.Model.SubSection
+import apollozhu.github.io.azdmv.R
 
 class MainAdapter(val ctx: Context) : ExpandableListAdapter {
     override fun isEmpty(): Boolean {
@@ -43,6 +45,9 @@ class MainAdapter(val ctx: Context) : ExpandableListAdapter {
 
     override fun getGroupView(p0: Int, p1: Boolean, p2: View?, p3: ViewGroup?): View {
         val label = if (p2 is TextView) p2 else TextView(ctx)
+        label.textSize = 18.0f
+        label.setBackgroundResource(R.color.positive)
+        label.setTextColor(Color.WHITE)
         label.text = (getGroup(p0) as Section).sectionTitle
         return label
     }
