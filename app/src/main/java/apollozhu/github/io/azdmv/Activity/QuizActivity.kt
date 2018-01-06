@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +41,19 @@ class QuizActivity : AZBaseCompatActivity() {
 
         // Set up the ViewPager with the sections adapter.
         container.adapter = mSectionsPagerAdapter
-        container.currentItem = intent.getIntExtra("index", 0)
+        val index = intent.getIntExtra("index", 0)
+        container.currentItem = index
+        supportActionBar!!.title = "#${SubSection.current!!.quizIDs[index]}"
+
+        container.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {}
+
+            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {}
+
+            override fun onPageSelected(position: Int) {
+                supportActionBar!!.title = "#${SubSection.current!!.quizIDs[position]}"
+            }
+        })
 
         fab.setOnClickListener { _ -> onBackPressed() }
     }
@@ -53,7 +66,6 @@ class QuizActivity : AZBaseCompatActivity() {
         override fun getItem(position: Int): Fragment {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            supportActionBar!!.title = "#${SubSection.current!!.quizIDs[position]}"
             return PlaceholderFragment.newInstance(position)
         }
 

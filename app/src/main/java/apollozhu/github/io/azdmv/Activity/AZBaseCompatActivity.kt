@@ -8,7 +8,9 @@ import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import apollozhu.github.io.azdmv.model.Manual
 import apollozhu.github.io.azdmv.model.QuizSet
+import com.pgyersdk.activity.FeedbackActivity
 import com.pgyersdk.feedback.PgyFeedbackShakeManager
+import com.pgyersdk.views.PgyerDialog
 
 open class AZBaseCompatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
@@ -39,6 +41,15 @@ open class AZBaseCompatActivity : AppCompatActivity() {
 
         // 以对话框的形式弹出，对话框只支持竖屏
         PgyFeedbackShakeManager.register(this)
+
+        PgyerDialog.setDialogTitleBackgroundColor("#008080")
+        PgyerDialog.setDialogTitleTextColor("#FFFFFF")
+        // 设置顶部导航栏和底部bar的颜色
+        FeedbackActivity.setBarBackgroundColor("#008080")
+        // 设置顶部按钮和底部按钮按下时的反馈色
+        FeedbackActivity.setBarButtonPressedColor("#339999")
+        // 设置颜色选择器的背景色
+        FeedbackActivity.setColorPickerBackgroundColor("#F79700")
 
         // 以Activity的形式打开，这种情况下必须在AndroidManifest.xml配置FeedbackActivity
         // 打开沉浸式,默认为false

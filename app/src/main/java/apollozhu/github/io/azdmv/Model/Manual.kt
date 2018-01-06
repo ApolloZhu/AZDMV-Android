@@ -42,9 +42,15 @@ object Manual {
         /*return*/ sections.requireNoNulls()
     }
 
-    val subsections: List<List<SubSection>> by lazy {
+    val subsectionsCount: Int by lazy { manual.length() }
+
+    val flattendSubSections: List<SubSection> by lazy {
+        subSections.flatten()
+    }
+
+    val subSections: List<List<SubSection>> by lazy {
         val subSections = (1..sections.size).map { mutableListOf<SubSection>() }
-        for (key in 0 until manual.length()) {
+        for (key in 0 until subsectionsCount) {
             val subJSON = manual.getJSONObject(key)
             val sectionID = subJSON.getInt("section")
             subSections[sectionID - 1].add(SubSection(this,

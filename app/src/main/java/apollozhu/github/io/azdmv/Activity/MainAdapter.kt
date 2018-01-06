@@ -50,7 +50,7 @@ class MainAdapter(private val ctx: Context) : ExpandableListAdapter {
         val section = getGroup(p0) as Section
         label.typeface = ResourcesCompat.getFont(ctx, R.font.icomoon)
         label.text = "${section.icon} ${section.sectionTitle}"
-        label.setBackgroundResource(R.color.positive)
+        label.setBackgroundResource(R.color.colorAccent)
         label.setTextColor(Color.WHITE)
         return label
     }
@@ -70,7 +70,7 @@ class MainAdapter(private val ctx: Context) : ExpandableListAdapter {
     // Child
 
     override fun getChildrenCount(p0: Int): Int {
-        return Manual.subsections[p0].size
+        return Manual.subSections[p0].size
     }
 
     override fun getChildId(p0: Int, p1: Int): Long {
@@ -78,7 +78,7 @@ class MainAdapter(private val ctx: Context) : ExpandableListAdapter {
     }
 
     override fun getChild(p0: Int, p1: Int): Any {
-        return Manual.subsections[p0][p1]
+        return Manual.subSections[p0][p1]
     }
 
     override fun getChildView(p0: Int, p1: Int, p2: Boolean, p3: View?, p4: ViewGroup?): View {

@@ -27,8 +27,8 @@ class MainActivity : AZBaseCompatActivity() {
         (0 until adapter.groupCount).forEach { listView.expandGroup(it) }
 
         listView.setOnChildClickListener { _, _, section, subSection, _ ->
-            SubSection.current = Manual.subsections[section][subSection]
-            val intent = Intent(this, SubSectionActivity::class.java)
+            SubSection.current = Manual.subSections[section][subSection]
+            val intent = Intent(this, ManualActivity::class.java)
             startActivity(intent)
             /*return*/ true
         }
